@@ -5,17 +5,23 @@ import axios from "axios";
 
 const NotesContainer = () => {
   const [notes, updateNotes] = useState([]);
+  const fetchData = async () => {
+    const result = await axios.get(`http://localhost:3000/notes`);
+    updateNotes(result.data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(`http://localhost:3000/notes`);
-      updateNotes(result.data);
-    };
     fetchData();
   }, []);
-  function changeStatus(id, checked) {
-    console.log("|---------------------------------------------------------->");
-    console.log(id, checked);
-    console.log("<----------------------------------------------------------|");
+  async function changeStatus(id, checked) {
+    const updatedNote = notes.find(entry => entry.id === id);
+    const updatedBody = Object.assign(updatedNote, {
+      status: checked ? "Done" : "Pending"
+    });
+    await axios.put(
+      `http://localhost:3000/notes/${updatedNote.id}`,
+      updatedBody
+    );
+    fetchData();
   }
   function handleAddNote(data) {
     const newNotes = [...notes, data];

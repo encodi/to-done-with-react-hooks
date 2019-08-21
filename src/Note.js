@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 const Note = props => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(
+    props.status === "Pending" ? false : true
+  );
   return (
     <div className="Note">
       <h1>Title: {props.title}</h1>

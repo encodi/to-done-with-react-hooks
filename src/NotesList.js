@@ -11,6 +11,8 @@ const NotesList = props => {
             title={note.title}
             description={note.description}
             status={note.status}
+            id={note.id}
+            changeStatus={props.changeStatus}
           />
         );
       })}

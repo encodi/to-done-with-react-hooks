@@ -12,6 +12,11 @@ const NotesContainer = () => {
     };
     fetchData();
   }, []);
+  function changeStatus(id, checked) {
+    console.log("|---------------------------------------------------------->");
+    console.log(id, checked);
+    console.log("<----------------------------------------------------------|");
+  }
   function handleAddNote(data) {
     const newNotes = [...notes, data];
     updateNotes(newNotes);
@@ -19,7 +24,7 @@ const NotesContainer = () => {
   return (
     <div className="notesContainer">
       <AddNote handleAddNote={handleAddNote} />
-      <NotesList notes={notes} />
+      <NotesList notes={notes} changeStatus={changeStatus} />
     </div>
   );
 };
